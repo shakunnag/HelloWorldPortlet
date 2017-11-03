@@ -28,11 +28,32 @@
 			<type>pom</type>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.ibm.websphere.appserver</groupId>
 			<artifactId>was_public</artifactId>
 			<version>8.5.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ff4j</groupId>
+			<artifactId>ff4j-core</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+			<version>4.11</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ff4j</groupId>
+			<artifactId>ff4j-web</artifactId>
+			<version>1.6.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20160807</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -56,7 +77,28 @@
 					</archive>
 				</configuration>
 			</plugin>
-			
+			<plugin>
+				<groupId>com.ibm.tools.plugin</groupId>
+				<artifactId>portal-deployment-maven-plugin</artifactId>
+				<version>1.0</version>
+				<executions>
+					<execution>
+						<phase>integration-test</phase>
+						<configuration>
+							<username>wpadmin</username>
+							<password>wpadmin</password>
+							<hostname>192.168.99.100</hostname>
+							<port>10039</port>
+							<scheme>http</scheme>
+	  						<contextroot>wps/myportal</contextroot>  
+	  						<cell>/QIBM/UserData/WebSphere/AppServer/V8/ND/profiles/wp_profile/installedApps/myCell/PA_HelloWorld.ear</cell>
+						</configuration>
+						<goals>
+							<goal>deploy-portlet</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>
